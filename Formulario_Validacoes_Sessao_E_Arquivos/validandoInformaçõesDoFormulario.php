@@ -1,0 +1,34 @@
+<?php
+
+$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+$nome = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+$idade = filter_input(INPUT_POST, 'idade', FILTER_SANITIZE_NUMBER_INT);
+
+
+// FILTER VALIDATE SÓ ACEITA SE FOR EXATAMENTE O QUE FOI DIGITADO
+
+// FILTER_VALIDATE_EMAIL
+// FILTER_VALIDATE_INT
+// FILTER_VALIDATE_FLOAT
+// FILTER_VALIDATE_IP
+// FILTER_VALIDATE_URL
+
+// FILTER SANITIZE RETIRA O QUE NÃO FOI O ESPECIFICADO
+
+// FILTER_SANITIZE_EMAIL
+// FILTER_SANITIZE_STRING
+// FILTER_SANITIZE_SPECIAL_CHARS
+// FILTER_SANITIZE_URL
+// FILTER_SANITIZE_NUMBER_INT
+// FILTER_SANITIZE_NUMBER_FLOAT
+
+if($nome && $email && $idade) {
+
+    echo 'Nome: '.$nome."<br/>";
+    echo 'Nome: '.$email."<br/>";
+    echo 'Idade: '.$idade;
+
+} else {
+    header("Location: index.php");
+    exit;
+}

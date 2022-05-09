@@ -1,0 +1,31 @@
+
+
+O que o projeto precisa fazer?
+- Listar as anotações
+- Pegar as informações de uma anotação específica
+- Inserir uma anotação nova
+- Atualizar uma anotação
+- Deletar uma anotação
+
+Qual a estrutura de dados?
+- Local para armazenar as anotações
+-- id
+-- title
+-- body
+
+Quais os endpoints?
+- (METODO) /url (PARÂMETROS)
+
+- (GET) /api/notes - Para listar todas as anotações
+- (GET) /api/note/{id} - Para pegar informações de uma anotação específica
+- (POST) /api/note (title, body) - Para inserir uma anotação nova
+- (PUT) /api/note/{id} (title, body) - Para atualizar uma anotação
+- (DELETE) /api/note/{id} - Para deletar uma anotação
+
+Endpoints com PHP Estrutural =
+
+- (GET) /api/getall.php - Para listar todas as anotações
+- (GET) /api/get.php?id=123 - Para pegar informações de uma anotação específica
+- (POST) /api/insert.php (title, body) - Para inserir uma anotação nova
+- (PUT) /api/update.php (id, title, body) - Para atualizar uma anotação
+- (DELETE) /api/delete.php (id) - Para deletar uma anotação
