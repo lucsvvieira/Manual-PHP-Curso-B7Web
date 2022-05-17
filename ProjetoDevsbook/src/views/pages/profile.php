@@ -11,7 +11,7 @@
                     <div class="profile-cover" style="background-image: url('<?= $base; ?>/media/covers/<?= $user->cover; ?>');"></div>
                     <div class="profile-info m-20 row">
                         <div class="profile-info-avatar">
-                            <img src="media/avatars/avatar.jpg" />
+                            <img src="<?=$base;?>/media/avatars/avatar.jpg" />
                         </div>
                         <div class="profile-info-name">
                             <div class="profile-info-name-text"><?= $user->name; ?></div>
@@ -139,7 +139,7 @@
 
                 <div class="feed-pagination">
                     <?php for ($q = 0; $q < $feed['pageCount']; $q++) : ?>
-                        <a class="<?= ($q == $feed['currentPage'] ? 'active' : '') ?>" href="<?= $base; ?>/perfil/<?= $user->id; ?>?page=<?= $q; ?>"><? $q + 1; ?></a>
+                        <a class="<?= ($q == $feed['currentPage'] ? 'active' : ''); ?>" href="<?= $base; ?>/perfil/<?= $user->id; ?>?page=<?= $q; ?>"><? $q + 1; ?></a>
                     <?php endfor; ?>
                 </div>
 

@@ -19,7 +19,7 @@
 
                 <div class="feed-pagination">
                     <?php for($q=0;$q<$feed['pageCount'];$q++): ?>
-                        <a class="<?=($q==$feed['currentPage']?'active' : '')?>" href="<?=$base;?>/?page=<?=$q;?>"><?$q+1;?></a>
+                        <a class="<?=($q==$feed['currentPage']?'active' : '');?>" href="<?=$base;?>/?page=<?=$q;?>"><?$q+1;?></a>
                     <?php endfor; ?>
                 </div>
 
@@ -35,8 +35,8 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <a href=""><img src="https://alunos.b7web.com.br/media/courses/php-nivel-1.jpg" /></a>
-                        <a href=""><img src="https://alunos.b7web.com.br/media/courses/laravel-nivel-1.jpg" /></a>
+                        <a href=""><img src="<?=$base;?>/https://alunos.b7web.com.br/media/courses/php-nivel-1.jpg" /></a>
+                        <a href=""><img src="<?=$base;?>/https://alunos.b7web.com.br/media/courses/laravel-nivel-1.jpg" /></a>
                     </div>
                 </div>
                 <div class="box">
