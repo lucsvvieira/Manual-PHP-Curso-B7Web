@@ -6,7 +6,7 @@ use \src\models\UserRelation;
 use \src\handlers\PostHandler;
 
 class UserHandler {
-    
+
     public static function checkLogin() {
         if(!empty($_SESSION['token'])) {
             $token = $_SESSION['token'];
@@ -35,8 +35,8 @@ class UserHandler {
 
                 User::update()
                     ->set('token', $token)
-                    ->where('email', $email)->
-                execute();
+                    ->where('email', $email)
+                ->execute();
 
                 return $token;
             }
@@ -59,10 +59,10 @@ class UserHandler {
         $data = User::select()->where('id', $id)->one();
 
         if($data) {
-
             $user = new User();
             $user->id = $data['id'];
             $user->name = $data['name'];
+            $user->email = $data['email'];
             $user->birthdate = $data['birthdate'];
             $user->city = $data['city'];
             $user->work = $data['work'];
@@ -75,30 +75,30 @@ class UserHandler {
                 $user->photos = [];
 
                 // followers
-                    $followers = UserRelation::select()->where('user_to', $id)->get();
-                    foreach($followers as $follower) {
-                        $userData = User::select()->where('id', $follower['user_from'])->one();
+                $followers = UserRelation::select()->where('user_to', $id)->get();
+                foreach($followers as $follower) {
+                    $userData = User::select()->where('id', $follower['user_from'])->one();
+                    
+                    $newUser = new User();
+                    $newUser->id = $userData['id'];
+                    $newUser->name = $userData['name'];
+                    $newUser->avatar = $userData['avatar'];
 
-                        $newUser = new User();
-                        $newUser->id = $userData['id'];
-                        $newUser->name = $userData['name'];
-                        $newUser->avatar = $userData['avatar'];
-
-                        $user->followers[] = $newUser;
-                    }
+                    $user->followers[] = $newUser;
+                }
 
                 // following
-                    $following = UserRelation::select()->where('user_from', $id)->get();
-                        foreach($following as $follower) {
-                            $userData = User::select()->where('id', $follower['user_to'])->one();
+                $following = UserRelation::select()->where('user_from', $id)->get();
+                foreach($following as $follower) {
+                    $userData = User::select()->where('id', $follower['user_to'])->one();
+                    
+                    $newUser = new User();
+                    $newUser->id = $userData['id'];
+                    $newUser->name = $userData['name'];
+                    $newUser->avatar = $userData['avatar'];
 
-                            $newUser = new User();
-                            $newUser->id = $userData['id'];
-                            $newUser->name = $userData['name'];
-                            $newUser->avatar = $userData['avatar'];
-
-                            $user->following[] = $newUser;
-                    }
+                    $user->following[] = $newUser;
+                }
 
                 // photos
                 $user->photos = PostHandler::getPhotosFrom($id);
@@ -154,21 +154,41 @@ class UserHandler {
 
     public static function searchUser($term) {
         $users = [];
+
         $data = User::select()->where('name', 'like', '%'.$term.'%')->get();
 
         if($data) {
             foreach($data as $user) {
-                
+
                 $newUser = new User();
                 $newUser->id = $user['id'];
                 $newUser->name = $user['name'];
                 $newUser->avatar = $user['avatar'];
 
                 $users[] = $newUser;
+
             }
         }
 
         return $users;
+    }
+
+    public static function updateUser($fields, $idUser) {
+        if(count($fields) > 0) {
+
+            $update = User::update();
+
+            foreach($fields as $fieldName => $fieldValue) {
+                if($fieldName == 'password') {
+                    $fieldValue = password_hash($fieldValue, PASSWORD_DEFAULT);
+                }
+
+                $update->set($fieldName, $fieldValue);
+            }
+
+            $update->where('id', $idUser)->execute();
+
+        }
     }
 
 }
