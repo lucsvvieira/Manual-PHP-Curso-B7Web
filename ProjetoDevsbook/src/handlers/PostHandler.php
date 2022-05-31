@@ -3,6 +3,7 @@
 namespace src\handlers;
 
 use \src\models\Post;
+use \src\models\PostLike;
 use \src\models\User;
 use \src\models\UserRelation;
 
@@ -46,8 +47,14 @@ class PostHandler
             $newPost->user->avatar = $newUser['avatar'];
 
             // TO_do: 4.1 Preencher informações de LIKE
-            $newPost->likeCount = 0;
-            $newPost->liked = false;
+            $likes = PostLike::select()->where('id_post', $postItem['id'])->get();
+            $myLike = PostLike::select()
+                ->where('id_post', $postItem['id'])
+                ->where('id_user', $loggedUserId)
+            ->get();
+
+            $newPost->likeCount = count($likes);
+            $newPost->liked = (count($myLike) > 0) ? true : false;
 
             // TO_do: 4.2 Preencher informações de COMMENTS
             $newPost->comments = [];
