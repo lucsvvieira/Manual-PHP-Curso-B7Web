@@ -27,15 +27,15 @@
     let feedPhoto = document.querySelector('.feed-new-photo');
     let feedFile = document.querySelector('.feed-new-file');
 
-    feedPhoto.addEventListener('click', async function(){
+    feedPhoto.addEventListener('click', function(){
         feedFile.click();
     });
 
-    feedFile.addEventListener('change', function(){
+    feedFile.addEventListener('change', async function(){
         let photo = feedFile.files[0];
 
         let formData = new FormData();
-        FormData.append('photo', photo);
+        formData.append('photo', photo);
 
         let req = await fetch(BASE+'/ajax/upload', {
             method: 'POST',
