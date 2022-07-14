@@ -2,10 +2,19 @@
 
 require 'config.php';
 require 'models/Auth.php';
+require 'dao/UserRelationDaoMysql.php';
 
 $auth = new Auth($pdo, $base);
 $userInfo = $auth->checkToken();
 $activeMenu = 'home';
+
+// 1. Lista dos usuários que EU sigo.
+$urDao = new UserRelationDaoMysql($pdo);
+$userList = $urDao->getRelationsFrom($userInfo->id);
+
+// 2. Pegar os posts ordenado pela data.
+
+// 3. Transformar o resultado em objetos
 
 require 'partials/header.php';
 require 'partials/menu.php';
@@ -15,6 +24,8 @@ require 'partials/menu.php';
     <div class="row">
         <div class="column pr-5">
             <?php require 'partials/feed-editor.php'; ?>
+
+
         </div>
         <div class="column side pl-5">
             <div class="box banners">
