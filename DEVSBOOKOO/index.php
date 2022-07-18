@@ -18,7 +18,12 @@ require 'partials/menu.php';
 <section class="feed mt-10">
     <div class="row">
         <div class="column pr-5">
+
             <?php require 'partials/feed-editor.php'; ?>
+
+            <?php foreach($feed as $item): ?>
+                <?php require 'partials/feed-item.php'; ?>
+            <?php endforeach; ?>
 
 
         </div>
