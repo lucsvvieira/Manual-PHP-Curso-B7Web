@@ -38,4 +38,4 @@
             </div>
         </div>
     </header>
-    <section class="container-main">
+    <section class="container main">
