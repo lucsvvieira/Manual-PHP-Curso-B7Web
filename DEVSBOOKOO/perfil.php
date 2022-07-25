@@ -152,10 +152,10 @@ require 'partials/menu.php';
                                 <?php foreach ($user->photos as $item) : ?>
                                     <div class="user-photo-item">
                                         <a href="#modal-1" rel="modal:open">
-                                            <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
+                                            <img src="<?= $base; ?>/media/uploads/<?= $item->body; ?>" />
                                         </a>
                                         <div id="modal-1" style="display:none">
-                                            <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
+                                            <img src="<?= $base; ?>/media/uploads/<?= $item->body; ?>" />
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
