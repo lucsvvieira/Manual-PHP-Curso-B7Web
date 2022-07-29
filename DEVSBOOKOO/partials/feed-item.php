@@ -36,6 +36,9 @@ switch($item->type) {
             <div class="msg-btn"><?=count($item->comments);?></div>
         </div>
         <div class="feed-item-comments">
+            <div class="feed-item-comments-area">
+                
+            </div>
            
 
             <div class="fic-answer row m-height-10 m-width-20">
