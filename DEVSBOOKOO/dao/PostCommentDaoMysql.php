@@ -1,6 +1,6 @@
 <?php
 require_once 'models/PostComment.php';
-require_once 'dao/UserDaoMysql';
+require_once 'dao/UserDaoMysql.php';
 
 class PostCommentDaoMysql implements PostCommentDAO {
     private $pdo;
@@ -40,7 +40,15 @@ class PostCommentDaoMysql implements PostCommentDAO {
     }
 
     public function addComment(PostComment $pc) {
+        $sql = $this->pdo->prepare("INSERT INTO postcomments
+        (id_post, id_user, body, created_at) VALUES
+        (:id_post, :id_user, :body, :created_at)");
 
+        $sql->bindValue(':id_post', $pc->id_post);
+        $sql->bindValue(':id_user', $pc->id_user);
+        $sql->bindValue(':body', $pc->body);
+        $sql->bindValue(':created_at', $pc->created_at);
+        $sql->execute();
     }
  
 }
