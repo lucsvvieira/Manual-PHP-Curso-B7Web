@@ -105,8 +105,18 @@ class PostDaoMysql implements PostDAO {
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
             
             // 3. Transformar o resultado em objetos
-            $array = $this->_postListToObject($data, $id_user);
+            $array['feed'] = $this->_postListToObject($data, $id_user);
         }  
+
+        // 4. Pegar o total de POSTS
+        $sql = $this->pdo->query("SELECT COUNT(*) as c FROM posts
+        WHERE id_user IN (".implode(',', $userList).")");
+        $totalData = $sql->fetch();
+        $total = $totalData['c'];
+
+        $array['pages'] = ceil($total / $perPage);
+
+        $array['currentPage'] = $page;
 
         return $array;
     }
