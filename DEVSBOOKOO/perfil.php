@@ -20,6 +20,12 @@ if ($id != $userInfo->id) {
     $activeMenu = '';
 }
 
+// Pegando informações de paginação
+$page = intval(filter_input(INPUT_GET, 'p'));
+    if($page < 1) {
+        $page = 1;
+    }
+
 $postDao = new PostDaoMysql($pdo);
 $userDao = new UserDaoMysql($pdo);
 $UserRelationDao = new UserRelationDaoMysql($pdo);
@@ -35,7 +41,7 @@ $dateTo = new DateTime('today');
 $user->ageYears = $dateFrom->diff($dateTo)->y;
 
 // Pegar o FEED do usuário
-$info = $postDao->getUserFeed($id);
+$info = $postDao->getUserFeed($id, $page);
 $feed = $info['feed'];
 $pages = $info['pages'];
 $currentPage = $info['currentPage'];
