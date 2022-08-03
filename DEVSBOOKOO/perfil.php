@@ -22,9 +22,9 @@ if ($id != $userInfo->id) {
 
 // Pegando informações de paginação
 $page = intval(filter_input(INPUT_GET, 'p'));
-    if($page < 1) {
-        $page = 1;
-    }
+if ($page < 1) {
+    $page = 1;
+}
 
 $postDao = new PostDaoMysql($pdo);
 $userDao = new UserDaoMysql($pdo);
@@ -169,11 +169,11 @@ require 'partials/menu.php';
                         <?php foreach ($user->photos as $key => $item) : ?>
                             <?php if ($key < 4) : ?>
                                 <div class="user-photo-item">
-                                    <a href="#modal-1" data-modal-open>
+                                    <a href="#modal-<?= $key; ?>" data-modal-open>
                                         <img src="<?= $base; ?>/media/uploads/<?= $item->body; ?>" />
                                     </a>
-                                    <div id="modal-1" style="display:none">
-                                        <img src="<?= $base; ?>/media/uploads/<?= $item->body; ?>" />
+                                    <div id="modal-<?= $key; ?>" style="display:none">
+                                        <img src="<?= $base; ?>/media/uploads/<?= $item->body; ?>">
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -193,9 +193,9 @@ require 'partials/menu.php';
                 <?php endforeach; ?>
 
                 <div class="feed-pagination">
-                    <?php for($q=0;$q<$pages;$q++): ?>
-                        <a class="<?=($q+1==$currentPage)?'active':''?>" href="<?=$base;?>/perfil.php?id=<?=$id?>&p=<?=$q+1;?>"><?=$q+1;?></a>
-                    <?php endfor;?>
+                    <?php for ($q = 0; $q < $pages; $q++) : ?>
+                        <a class="<?= ($q + 1 == $currentPage) ? 'active' : '' ?>" href="<?= $base; ?>/perfil.php?id=<?= $id ?>&p=<?= $q + 1; ?>"><?= $q + 1; ?></a>
+                    <?php endfor; ?>
                 </div>
 
             <?php else : ?>
